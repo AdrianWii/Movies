@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>MOVIES</h1>
+
+        <div class="row">
+            <ul class="thumbnails list-unstyled">
+        {% for movie in movies %}
+                    <li class="col-md-3">
+                        <div class="thumbnail" style="padding: 0">
+                            <div style="padding:4px">
+                                <a href="{{ path('movie_show', { 'id': movie.id }) }}">
+                                    //add to controller method that find first poster for movie
+                                <img alt="300x200" src="http://www.impawards.com/2009/posters/avatar_xlg.jpg">
+                                </a>
+                            </div>
+                            <div class="caption">
+                                <h2>{{ movie.title|upper }}</h2>
+                                <p style="height: 80px;">
+                                    {% if movie.description|length > 136 %}
+                                        {{ movie.description|truncate(132, true, ' ') }}<a href="{{ path('movie_show', { 'id': movie.id }) }}">...</a>
+                                    {% else %}
+                                        {{ movie.description }}
+                                    {% endif %}
+                                </p>
+                                <p>TAGI</p>
+                                <ul class="list-inline">
+                                    <li>
+                                        <a href="{{ path('movie_show', { 'id': movie.id }) }}"
+                                           class="btn btn-info" role="button"><i class="fa fa-eye fa-2x"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('movie_edit', { 'id': movie.id }) }}"
+                                           class="btn btn-info" role="button"><i class="fa fa-pencil fa-2x"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('movie_remove', { 'id': movie.id }) }}"
+                                           class="btn btn-danger" role="button"><i class="fa fa-trash fa-2x"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+        {% endfor %}
+                </ul>
+            </div>
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('movie_new') }}" class="btn btn-default" role="button">Create a new movie</a>
+        </li>
+    </ul>
+{% endblock %}
